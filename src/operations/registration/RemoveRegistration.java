@@ -1,0 +1,22 @@
+package operations.registration;
+
+import db.DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class RemoveRegistration {
+    public int run(int employeeId, int courseId) throws SQLException {
+        if (employeeId <= 0 || courseId <= 0)
+            throw new IllegalArgumentException("Invalid employee or course ID.");
+
+        String sql = "DELETE FROM Registration WHERE EmployeeID = ? AND CourseID = ?";
+        try (Connection c = DB.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, employeeId); // 1st ?
+            ps.setInt(2, courseId);   // 2nd ?
+            return ps.executeUpdate();
+        }
+    }
+}
