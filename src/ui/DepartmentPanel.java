@@ -1,9 +1,9 @@
 package ui;
 
-import operations.department.InsertDep;
-import operations.department.RemoveDep;
-import operations.department.SearchDep;
-import operations.department.UpdateDep;
+import operations.facility.InsertDep;
+import operations.facility.RemoveDep;
+import operations.facility.SearchDep;
+import operations.facility.UpdateDep;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,8 +17,12 @@ public class DepartmentPanel extends JPanel {
     private final JButton btnEdit = new JButton("Edit");
     private final JButton btnDelete = new JButton("Delete");
     private final JTable table = new JTable();
+    private final InstructorPanel instucPanel;
 
-    public DepartmentPanel() {
+
+
+    public DepartmentPanel(InstructorPanel instucPanel) {
+        this.instucPanel = instucPanel;
         setLayout(new BorderLayout(10, 10));
 
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -90,7 +94,7 @@ public class DepartmentPanel extends JPanel {
 
         try {
             int n = new UpdateDep().run(id, name);
-            if (n == 1) { showInfo("Updated."); refresh(); }
+            if (n == 1) { showInfo("Updated."); refresh(); this.instucPanel.refresh();  }
             else { showInfo("Row not found."); }
         } catch (IllegalArgumentException iae) {
             showWarn(iae.getMessage());

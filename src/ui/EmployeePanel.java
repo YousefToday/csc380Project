@@ -17,8 +17,11 @@ public class EmployeePanel extends JPanel {
     private final JButton btnEdit = new JButton("Edit");
     private final JButton btnDelete = new JButton("Delete");
     private final JTable table = new JTable();
+    private final RegistrationPanel regPanel;
 
-    public EmployeePanel() {
+    public EmployeePanel(RegistrationPanel regPanel) {
+        this.regPanel = regPanel;
+
         setLayout(new BorderLayout(6, 6));
 
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -72,7 +75,7 @@ public class EmployeePanel extends JPanel {
 
         try {
             int n = new InsertEmp().run(name, email , spec);
-            if (n == 1) { showInfo("Inserted."); refresh(); }
+            if (n == 1) { showInfo("Inserted."); refresh(); this.regPanel.reloadCombos(); }
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 
@@ -88,7 +91,7 @@ public class EmployeePanel extends JPanel {
 
         JTextField fName = new JTextField(curName, 20);
         JTextField fEmail = new JTextField(curEmail, 20);
-        JTextField fSpec = new JTextField(curEmail, 20);
+        JTextField fSpec = new JTextField(curSpec, 20);
 
 
         JPanel p = new JPanel(new GridLayout(0,2,8,8));
@@ -110,7 +113,7 @@ public class EmployeePanel extends JPanel {
 
         try {
             int n = new UpdateEmp().run(id, name, email , spec);
-            if (n == 1) { showInfo("Updated."); refresh(); } else showInfo("Row not found.");
+            if (n == 1) { showInfo("Updated."); refresh(); this.regPanel.refresh(); } else showInfo("Row not found.");
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 
@@ -128,7 +131,7 @@ public class EmployeePanel extends JPanel {
 
         try {
             int n = new RemoveEmp().run(id);
-            if (n == 1) { showInfo("Deleted."); refresh(); } else showInfo("Row not found.");
+            if (n == 1) { showInfo("Deleted."); refresh(); this.regPanel.reloadCombos(); } else showInfo("Row not found.");
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 

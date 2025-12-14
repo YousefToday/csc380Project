@@ -13,8 +13,13 @@ public class InstructorPanel extends JPanel {
     private final JButton btnEdit = new JButton("Edit");
     private final JButton btnDelete = new JButton("Delete");
     private final JTable table = new JTable();
+    private final CoursePanel coursePanel;
+    private final RegistrationPanel regPanel;
 
-    public InstructorPanel() {
+    public InstructorPanel(CoursePanel coursePanel, RegistrationPanel regPanel) {
+        this.regPanel = regPanel;
+        this.coursePanel = coursePanel;
+
         setLayout(new BorderLayout(6, 6));
 
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -36,7 +41,7 @@ public class InstructorPanel extends JPanel {
         refresh();
     }
 
-    private void refresh() {
+    public void refresh() {
         try {
             DefaultTableModel tm = new SearchIns().run(txtSearch.getText());
             table.setModel(tm);
@@ -114,7 +119,7 @@ public class InstructorPanel extends JPanel {
 
         try {
             int n = new UpdateIns().run(id, name, email, d.getId(), o.getId());
-            if (n == 1) { showInfo("Updated."); refresh(); } else showInfo("Row not found.");
+            if (n == 1) { showInfo("Updated."); refresh(); this.coursePanel.refresh(); this.regPanel.refresh(); } else showInfo("Row not found.");
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 

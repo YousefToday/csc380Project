@@ -1,4 +1,4 @@
-package operations.department;
+package operations.facility;
 
 import db.DB;
 

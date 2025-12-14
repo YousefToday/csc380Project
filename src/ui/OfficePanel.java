@@ -17,8 +17,10 @@ public class OfficePanel extends JPanel {
     private final JButton btnEdit = new JButton("Edit");
     private final JButton btnDelete = new JButton("Delete");
     private final JTable table = new JTable();
+    private final InstructorPanel instucPanel;
 
-    public OfficePanel() {
+    public OfficePanel(InstructorPanel instucPanel) {
+        this.instucPanel = instucPanel;
         setLayout(new BorderLayout(6, 6));
 
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -81,7 +83,7 @@ public class OfficePanel extends JPanel {
         try {
             int floor = Integer.parseInt(s);
             int n = new UpdateOffice().run(id, floor);
-            if (n == 1) { showInfo("Updated."); refresh(); } else showInfo("Row not found.");
+            if (n == 1) { showInfo("Updated."); refresh(); this.instucPanel.refresh(); } else showInfo("Row not found.");
         } catch (NumberFormatException nfe) { showWarn("Please enter an integer."); }
         catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }

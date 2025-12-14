@@ -30,7 +30,7 @@ public class RegistrationPanel extends JPanel {
         top.add(new JLabel("Search:"));
         top.add(txtSearch);
         top.add(btnSearch);
-        add(top, BorderLayout.SOUTH); // keep your layout
+        add(top, BorderLayout.SOUTH);
 
         add(new JScrollPane(table), BorderLayout.CENTER);
 
@@ -39,17 +39,17 @@ public class RegistrationPanel extends JPanel {
         bottom.add(new JLabel("Course:"));    bottom.add(cbCourse);
         bottom.add(btnAdd);
         bottom.add(btnRemove);
-        add(bottom, BorderLayout.NORTH); // keep your layout
+        add(bottom, BorderLayout.NORTH);
 
         btnSearch.addActionListener(e -> refresh());
         txtSearch.addActionListener(e -> btnSearch.doClick());
         btnAdd.addActionListener(e -> onAdd());
         btnRemove.addActionListener(e -> onRemove());
 
-        refresh(); // will also load combos now
+        refresh();
     }
 
-    private void reloadCombos() {
+    public void reloadCombos() {
         cbEmployee.setModel(makeEmployeeCombo().getModel());
         cbCourse.setModel(makeCoursesWithInstructorCombo().getModel());
         if (cbEmployee.getItemCount() > 0) cbEmployee.setSelectedIndex(0);

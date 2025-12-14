@@ -20,8 +20,11 @@ public class CoursePanel extends JPanel {
     private final JButton btnEdit = new JButton("Edit");
     private final JButton btnDelete = new JButton("Delete");
     private final JTable table = new JTable();
+    private final RegistrationPanel regPanel;
 
-    public CoursePanel() {
+    public CoursePanel(RegistrationPanel regPanel) {
+        this.regPanel = regPanel;
+
         setLayout(new BorderLayout(6, 6));
 
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -47,7 +50,7 @@ public class CoursePanel extends JPanel {
         refresh();
     }
 
-    private void refresh() {
+    public void refresh() {
         try {
             DefaultTableModel tm = new SearchCourse().run(txtSearch.getText());
             table.setModel(tm);
@@ -74,7 +77,7 @@ public class CoursePanel extends JPanel {
 
         try {
             int n = new InsertCourse().run(name, ins.getId());
-            if (n == 1) { showInfo("Inserted."); refresh(); }
+            if (n == 1) { showInfo("Inserted."); refresh(); this.regPanel.reloadCombos(); }
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 
@@ -106,7 +109,7 @@ public class CoursePanel extends JPanel {
 
         try {
             int n = new UpdateCourse().run(id, name, ins.getId());
-            if (n == 1) { showInfo("Updated."); refresh(); } else showInfo("Row not found.");
+            if (n == 1) { showInfo("Updated."); refresh(); this.regPanel.refresh(); } else showInfo("Row not found.");
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 
@@ -124,7 +127,7 @@ public class CoursePanel extends JPanel {
 
         try {
             int n = new RemoveCourse().run(id);
-            if (n == 1) { showInfo("Deleted."); refresh(); } else showInfo("Row not found.");
+            if (n == 1) { showInfo("Deleted."); refresh(); this.regPanel.reloadCombos(); } else showInfo("Row not found.");
         } catch (SQLException ex) { showError("Database error: " + ex.getMessage()); }
     }
 

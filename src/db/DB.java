@@ -6,7 +6,7 @@ public class DB {
     private static final String URL  =
             "jdbc:mysql://localhost:3306/csc380Project?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASS = "password";
+    private static final String PASS = "Youseftod@y0";
 
     private DB() { }
 

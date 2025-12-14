@@ -13,7 +13,7 @@ public class UpdateEmp {
         if (email == null || !email.contains("@"))throw new IllegalArgumentException("Email is required.");
         if (speciality == null || speciality.trim().isEmpty()) throw new IllegalArgumentException("Speciality is required.");
 
-        String sql = "UPDATE Employee SET EmployeeName = ?, Email = ? , Speciality = ?, WHERE EmployeeID = ?";
+        String sql = "UPDATE Employee SET EmployeeName = ?, Email = ? , Speciality = ? WHERE EmployeeID = ?";
         try (Connection c = DB.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, name.trim());
