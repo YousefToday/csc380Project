@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class DB {
     private static final String URL  =
-            "jdbc:mysql://localhost:3306/csc380Project?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            "jdbc:mysql://localhost:3306/olympics_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASS = "Youseftod@y0";
+    private static final String PASS = "password";
 
     private DB() { }
 
